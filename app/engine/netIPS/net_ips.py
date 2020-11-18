@@ -24,17 +24,24 @@ class NetIPS(BaseEngine):
         if not command:
             return False
         return_code, out, err = utils.system_execute(command)
-        logger.info("""
-        {}
-        {}
-        {}
-        """.format(return_code, out, err))
         if return_code:
             logger.error(err)
-            return False
+            return {
+                "return_code": return_code,
+                "error": err
+            }
         else:
-            logger.info(out)
-            return True
+            engine_status = None
+            for line in out.splitlines():
+                if 'IDS Status:' in line:
+                    cols = line.strip().split('|')
+                    cols = [col.strip() for col in cols if len(col.strip()) > 0]
+                    engine_status = cols[1]
+
+            return {
+                "engine_status": engine_status,
+                "stdout": out
+            }
 
     def start_service(self):
         command = self.commands.get('start_engine')
