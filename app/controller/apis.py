@@ -5,21 +5,21 @@ from . import (
     blueprint
 )
 
-@blueprint.route('/running-status', methods=['GET'])
+@blueprint.route('/status', methods=['GET'])
 def get_engine_running_status():
     status = _engine.running_status()
     return json_response(data={
         'status': status
     })
 
-@blueprint.route('/start', methods=['POST'])
+@blueprint.route('/start', methods=['GET'])
 def start_engine():
     res = _engine.start_service()
     return json_response(data={
         'status': res
     })
 
-@blueprint.route('/stop', methods=['POST'])
+@blueprint.route('/stop', methods=['GET'])
 def stop_engine():
     res = _engine.stop_service()
     return json_response(data={

@@ -14,14 +14,14 @@ class Suricata(BaseEngine):
 
     def init_app(self, app):
         # config for suricata instance
-        with open('%s/engine/suricata/config.yml' % app.root_path) as fp:
+        with open('%s/engine/config/suricata/config.yml' % app.root_path) as fp:
             self.config = yaml.load(fp, Loader=yaml.FullLoader)
 
         for k, v in app.config.items():
             self.config[k] = v
 
         # read commands from config file
-        config_file = "{}/engine/suricata/suricata_{}.conf".format(app.root_path, self.config.get('OS_TYPE') or 'centos')
+        config_file = "{}/engine/config/suricata/suricata_{}.conf".format(app.root_path, self.config.get('OS_TYPE') or 'centos')
         with open(config_file) as c:
             self.commands = json.load(c)
 
