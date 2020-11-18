@@ -24,6 +24,11 @@ class NetIPS(BaseEngine):
         if not command:
             return False
         return_code, out, err = utils.system_execute(command)
+        logger.info("""
+        {}
+        {}
+        {}
+        """.format(return_code, out, err))
         if return_code:
             logger.error(err)
             return False
