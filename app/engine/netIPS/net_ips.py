@@ -31,16 +31,8 @@ class NetIPS(BaseEngine):
                 "error": err
             }
         else:
-            engine_status = None
-            for line in out.splitlines():
-                if 'IDS Status:' in line:
-                    cols = line.strip().split('|')
-                    cols = [col.strip() for col in cols if len(col.strip()) > 0]
-                    engine_status = cols[1]
-
             return {
-                "engine_status": engine_status,
-                "stdout": out
+                "engine_status": out,
             }
 
     def start_service(self):

@@ -7,10 +7,8 @@ from . import (
 
 @blueprint.route('/status', methods=['GET'])
 def get_engine_running_status():
-    status = _engine.running_status()
-    return json_response(data={
-        'status': status
-    })
+    res = _engine.running_status()
+    return json_response(data=res)
 
 @blueprint.route('/start', methods=['GET'])
 def start_engine():
